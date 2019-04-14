@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#define INTL_DE
+#define INTL_RU
 
 /************************************************************************
  *                                                                      *
@@ -272,7 +272,7 @@ namespace cfg {
 #define URL_FSAPP "/data.php"
 #define PORT_FSAPP 80
 
-#define UPDATE_HOST "www.madavi.de"
+#define UPDATE_HOST "doiot.ru"
 #define UPDATE_URL "/sensor/update/firmware.php"
 #define UPDATE_PORT 80
 
@@ -571,6 +571,8 @@ String Value2Json(const String& type, const String& value) {
 	s.replace("{v}", value);
 	return s;
 }
+
+#include "aircms.h"
 
 /*****************************************************************
  * convert string value to json string                           *
@@ -2118,6 +2120,9 @@ static void waitForWifiToConnect(int maxRetries) {
 void connectWifi() {
 	debug_out(String(WiFi.status()), DEBUG_MIN_INFO, 1);
 	WiFi.disconnect();
+	delay(10);
+	WiFi.setSleepMode(WIFI_LIGHT_SLEEP);
+	delay(10);
 	WiFi.setOutputPower(20.5);
 	WiFi.setPhyMode(WIFI_PHY_MODE_11N);
 	WiFi.mode(WIFI_STA);
@@ -3615,6 +3620,8 @@ static void powerOnTestSensors() {
 		ds18b20.begin();                                    // Start DS18B20
 		debug_out(F("Read DS18B20..."), DEBUG_MIN_INFO, 1);
 	}
+
+	initIaqcore();
 }
 
 static void logEnabledAPIs() {
@@ -3763,6 +3770,11 @@ static unsigned long sendDataToOptionalApis(const String &data) {
 	unsigned long start_send = 0;
 	unsigned long sum_send_time = 0;
 
+	debug_out(String(FPSTR(DBG_TXT_SENDING_TO)) + F("aircms.online: "), DEBUG_MIN_INFO, 1);
+	start_send = millis();
+	sendData2Us(data, 0, FPSTR(TXT_CONTENT_TYPE_TEXT_PLAIN));
+	sum_send_time += millis() - start_send;
+
 	if (cfg::send2madavi) {
 		debug_out(String(FPSTR(DBG_TXT_SENDING_TO)) + F("madavi.de: "), DEBUG_MIN_INFO, 1);
 		start_send = millis();
@@ -3830,6 +3842,7 @@ void loop() {
 	String result_BMP280 = "";
 	String result_BME280 = "";
 	String result_DS18B20 = "";
+	String result_iaqcore = "";
 	String result_GPS = "";
 
 	unsigned long sum_send_time = 0;
@@ -3910,6 +3923,11 @@ void loop() {
 		if (cfg::ds18b20_read) {
 			debug_out(String(FPSTR(DBG_TXT_CALL_SENSOR)) + FPSTR(SENSORS_DS18B20), DEBUG_MAX_INFO, 1);
 			result_DS18B20 = sensorDS18B20();               // getting temperature (optional)
+		}
+
+		if (iaqcore_is_present) {
+			debug_out(F("Call sensor iAQcore"), DEBUG_MAX_INFO, 1);
+			result_iaqcore = sensorIaqcore();     // getting VOC
 		}
 	}
 
@@ -4042,6 +4060,10 @@ void loop() {
 				sendLuftdaten(result_GPS, GPS_API_PIN, HOST_DUSTI, HTTP_PORT_DUSTI, URL_DUSTI, true, "GPS_");
 				sum_send_time += millis() - start_send;
 			}
+		}
+
+		if(iaqcore_is_present) {
+			data += result_iaqcore;
 		}
 
 		data_sample_times += Value2Json("signal", signal_strength);
