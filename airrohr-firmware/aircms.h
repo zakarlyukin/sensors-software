@@ -4,6 +4,7 @@
 #define IAQCORE_I2CADDR 0x5A
 iAQcore iaqcore;
 bool iaqcore_is_present = false;
+String AIRCMS_VERSION = "AIRCMS-2019-001";
 
 void sha1Hex(const String& s, char hash[41]) {
     uint8_t buf[20];

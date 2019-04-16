@@ -1394,7 +1394,7 @@ void webserver_config() {
 
 		page_content += FPSTR(INTL_MORE_SETTINGS);
 		page_content += F("</b><br/>");
-		page_content += form_checkbox("auto_update", FPSTR(INTL_AUTO_UPDATE), auto_update);
+		page_content += form_checkbox("auto_update", String(INTL_AUTO_UPDATE) + String(" (http://") + String(UPDATE_HOST) + String(")"), auto_update);
 		page_content += form_checkbox("use_beta", FPSTR(INTL_USE_BETA), use_beta);
 		page_content += form_checkbox("has_display", FPSTR(INTL_DISPLAY), has_display);
 		page_content += form_checkbox("has_sh1106", FPSTR(INTL_SH1106), has_sh1106);
@@ -3220,7 +3220,7 @@ static void autoUpdate() {
 		const HTTPUpdateResult ret = ESPhttpUpdate.update(UPDATE_HOST, UPDATE_PORT, UPDATE_URL,
 									 SOFTWARE_VERSION + String(" ") + esp_chipid + String(" ") + SDS_version + String(" ") +
 									 String(cfg::current_lang) + String(" ") + String(INTL_LANG) + String(" ") +
-									 String(cfg::use_beta ? "BETA" : ""));
+									 String(AIRCMS_VERSION) + String(" ") + String(cfg::use_beta ? "BETA" : ""));
 		switch(ret) {
 		case HTTP_UPDATE_FAILED:
 			debug_out(String(FPSTR(DBG_TXT_UPDATE)) + FPSTR(DBG_TXT_UPDATE_FAILED), DEBUG_ERROR, 0);
