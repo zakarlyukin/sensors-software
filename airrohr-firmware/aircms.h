@@ -1,7 +1,6 @@
 #include "Hash.h"
 // Датчик iAQ-Core (VOC)
 #include "iAQcore.h"
-#define IAQCORE_I2CADDR 0x5A
 iAQcore iaqcore;
 bool iaqcore_is_present = false;
 String AIRCMS_VERSION = "AIRCMS-2019-001";
@@ -45,22 +44,12 @@ void sendData2Us(const String& data, const int pin, const String& contentType) {
     wdt_reset();
 }
 
-// Проверяет наличие датчика VOC
-bool isIaqcorePresent() {
-    byte error;
-    Wire.beginTransmission(IAQCORE_I2CADDR);
-    return Wire.endTransmission() == 0;
-}
-
 void initIaqcore() {
-    iaqcore_is_present = isIaqcorePresent();
+    Wire.setClockStretchLimit(2000);
+    iaqcore_is_present = iaqcore.begin();
     if (iaqcore_is_present) {
-        debug_out(F("iAQcore is present"), DEBUG_MIN_INFO, 1);
-        Wire.setClockStretchLimit(2000);
-    } else {
-        debug_out(F("iAQcore is not present"), DEBUG_MIN_INFO, 1);
+        debug_out(F("iAQcore is OK"), 0, 1);
     }
-    iaqcore.begin();
 }
 
 String sensorIaqcore() {
