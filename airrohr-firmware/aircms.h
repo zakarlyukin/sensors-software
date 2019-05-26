@@ -3,7 +3,7 @@
 #include "iAQcore.h"
 iAQcore iaqcore;
 bool iaqcore_is_present = false;
-String AIRCMS_VERSION = "AIRCMS-2019-001";
+String AIRCMS_VERSION = "AIRCMS-2019-002";
 
 void sha1Hex(const String& s, char hash[41]) {
     uint8_t buf[20];
