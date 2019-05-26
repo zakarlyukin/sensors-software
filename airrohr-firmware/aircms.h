@@ -45,6 +45,7 @@ void sendData2Us(const String& data, const int pin, const String& contentType) {
 }
 
 void initIaqcore() {
+    Wire.setClock(200000);
     Wire.setClockStretchLimit(2000);
     iaqcore_is_present = iaqcore.begin();
     if (iaqcore_is_present) {
