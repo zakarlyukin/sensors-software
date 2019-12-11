@@ -1,4 +1,7 @@
-# Version für Sensoren PPD42NS, SDS011, DHT22, BMP180, NEO-6M und weitere (siehe Konfigurationsseite)
+IMPORTANT: All pull requests should be made to the beta branch. The master branch is for the actual stable version. 
+
+
+# Version für Sensoren PPD42NS, SDS011, DHT22, BMP180, BMP/E 280, NEO-6M und weitere (siehe Konfigurationsseite)
 
 Features:
 * gleichzeitiger Betrieb mehrerer Sensoren
@@ -12,13 +15,16 @@ ToDo's:
 * neue Sensoren
 
 Dateien in diesem Verzeichnis:
-airrohr-firmware.ino	-	Sourcecode der eigentlichen Firmware
-ext_dev.h				-	grundsätzliche Konfiguration der Parameter (WLAN, Sensoren, APIs)
-html-content.h			-	allgemeine HTML-Sourcen und Bilder für HTML- und Text-Ausgaben
-intl_xx.h				-	Dateien mit übersetzten Texten für die Internationalisierung, 'xx' ist der 2 letter ISO code der 'Sprache'
-intl_template.h			-	Vorlage für Übersetzungen
-astyle.rc				-	Formatierungsvorlage für Astyle
-ppd42ns-wificonfig-ppd-sds-dht.spiffs.bin	-	Binary mit leerem Dateisystem, zum Löschen der Konfiguration, siehe Anleitung im Wiki
+
+| Dateiname                                 | Beschreibung                                                                                               |
+| ----------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| airrohr-firmware.ino                      | Sourcecode der eigentlichen Firmware                                                                       |
+| ext_def.h                                 | grundsätzliche Konfiguration der Parameter (WLAN, Sensoren, APIs)                                          |
+| html-content.h                            | allgemeine HTML-Sourcen und Bilder für HTML- und Text-Ausgaben                                             |
+| intl_xx.h                                 | Dateien mit übersetzten Texten für die Internationalisierung, 'xx' ist der 2 letter ISO code der 'Sprache' |
+| intl_template.h                           | Vorlage für Übersetzungen                                                                                  |
+| astyle.rc                                 | Formatierungsvorlage für Astyle                                                                            |
+| ppd42ns-wificonfig-ppd-sds-dht.spiffs.bin | Binary mit leerem Dateisystem, zum Löschen der Konfiguration, siehe Anleitung im Wiki                      |
 
 ## WLAN Konfiguration
 siehe auch Wiki-Seite auf Github [Konfiguration der Sensoren](https://github.com/opendata-stuttgart/meta/wiki/Konfiguration-der-Sensoren)
@@ -43,8 +49,8 @@ Die Daten können als CSV via USB ausgegeben werden. Dafür sollte sowohl in ext
 
 ## Benötigte Software (in Klammern getestete Version und die Art der Lizenz):
 
-* [Arduino IDE](https://www.arduino.cc/en/Main/Software)  (Version 1.8.7) (GNU Lesser General Public License v2.1)
-* [ESP8266 für Arduino](http://arduino.esp8266.com/stable/package_esp8266com_index.json) (Version 2.4.2)
+* [Arduino IDE](https://www.arduino.cc/en/Main/Software)  (Version 1.8.10) (GNU Lesser General Public License v2.1)
+* [ESP8266 für Arduino](http://arduino.esp8266.com/stable/package_esp8266com_index.json) (Version 2.6.2)
 
 
 ### Einstellungen Arduino IDE
@@ -52,7 +58,8 @@ Die Daten können als CSV via USB ausgegeben werden. Dafür sollte sowohl in ext
 * Board: NodeMCU 1.0 (ESP-12E Module)
 * CPU Frequency: 160MHz
 * Flash Size: 4M (3M SPIFFS)
-Ab "ESP für Arduino 2.4.2":
+
+Ab "ESP für Arduino 2.5.2":
 * Debug Port: Disabled
 * Debug Level: NoAssert-NDEBUG
 * lwIP Variant: v2.0 Lower memory
@@ -72,24 +79,20 @@ In ESP8266 für Arduino IDE enthalten:
 * FS (GNU Lesser Public License >=2.1)
 * ESP8266WiFi (GNU Lesser Public License >=2.1)
 * ESP8266WebServer (GNU Lesser Public License >=2.1)
-* ESP8266httpUpdate (1.1.0) (GNU Lesser Public License >=2.1)
+* ESP8266HTTPClient (GNU Lesser Public License >=2.1)
 * DNSServer (GNU Lesser Public License >=2.1)
 
 Installierbar über Arduino IDE (Menü Sketch -> Bibliothek einbinden -> Bibliotheken verwalten, in Klammern die getestete Version und die Art der Lizenz):
-* [ArduinoJson](https://github.com/bblanchon/ArduinoJson) (5.13.2) (MIT)
-* [Adafruit Unified Sensor](https://github.com/adafruit/Adafruit_Sensor) (1.0.2) (Apache)
-* [Adafruit BMP085 library](https://github.com/adafruit/Adafruit-BMP085-Library) (1.0.0) (BSD)
-* [Adafruit BMP280 library](https://github.com/adafruit/Adafruit_BMP280_Library) (1.0.2) (BSD)
-* [Adafruit BME280 library](https://github.com/adafruit/Adafruit_BME280_Library) (1.0.7) (BSD)
+* [ArduinoJson](https://github.com/bblanchon/ArduinoJson) (6.13.0) (MIT)
+* [Adafruit BMP085 library](https://github.com/adafruit/Adafruit-BMP085-Library) (1.0.1) (BSD)
+* [Adafruit HTU21DF library](https://github.com/adafruit/Adafruit_HTU21DF_Library) (1.0.2) (BSD)
 * [DallasTemperature](https://github.com/milesburton/Arduino-Temperature-Control-Library) (3.8.0)
-* [ESP8266 and ESP32 Oled driver for SSD1306 display](https://github.com/squix78/esp8266-oled-ssd1306) (4.0.0) (MIT)
+* [ESP8266 and ESP32 Oled driver for SSD1306 display](https://github.com/squix78/esp8266-oled-ssd1306) (4.1.0) (MIT)
 * [OneWire](www.pjrc.com/teensy/td_libs_OneWire.html) (2.3.4)
 * [LiquidCrystal I2C](https://github.com/marcoschwartz/LiquidCrystal_I2C) (1.1.2)
-* [Adafruit HTU21DF Library](https://github.com/adafruit/Adafruit_HTU21DF_Library) (1.0.1)
-* [SoftwareSerial](https://github.com/plerup/espsoftwareserial) (1.0.0) (GNU Lesser Public License >=2.1)
-
+* [EspSoftwareSerial](https://github.com/plerup/espsoftwareserial)(6.3.0)
 Manuell zu installieren:
-* [TinyGPS++](http://arduiniana.org/libraries/tinygpsplus/) (0.95) (GNU Lesser Public License >=2.1)
+* [TinyGPS++](http://arduiniana.org/libraries/tinygpsplus/) (1.0.2) (GNU Lesser Public License >=2.1)
 
 
 Bis Version NRZ-2016-15:
@@ -97,9 +100,6 @@ Bis Version NRZ-2016-15:
   (`DHT.cpp` und `DHT.h` downloaden und in das Softwareverzeichnis kopieren)
 
 Ich hoffe, alle Bibliotheken erwischt zu haben. Falls beim Kompilieren eine Bibliothek fehlt, bitte als [Issue](https://github.com/opendata-stuttgart/sensors-software/issues/) melden. Ich trage dann die Infos nach.
-
-ACHTUNG: Die DHT sensor library hat ab Version 1.2 ein Problem auf den ESP8266. Daher unbedingt max. Version 1.1.1 benutzen
-Um Probleme zu vermeiden, haben wir die letzte funktionierende Version als lokale Kopie eingebunden.
 
 ## Anschluss der Sensoren
 
@@ -153,7 +153,7 @@ Pinout PMS7003:
 
 * Pin  1/2 (VCC) -> VU
 * Pin  3/4 (GND) -> GND
-* Pin  5 (RESET) -> GND
+* Pin  5 (RESET) -> unused
 * Pin  6 (NC)    -> unused
 * Pin  7 (RX)    -> Pin D2 (GPIO4)
 * Pin  8 (NC)    -> unused
@@ -178,7 +178,7 @@ Pinout:
 * SCL  ->  Pin D4 (GPIO2)
 * SDA  ->  Pin D3 (GPIO0)
 
-### HTU21D (I2C)
+### HTU21D / Sensirion SHT3x (I2C)
 * VCC  ->  Pin 3V3
 * GND  ->  Pin GND
 * SCL  ->  Pin D4 (GPIO2)
@@ -212,3 +212,8 @@ Diese Firmware definiert die Pins für die verschiedenenen Sensoren wie folgt:
 * BMP280 => Pin 3
 * BME280 => Pin 11
 * GPS(Neo-6M) => Pin 9
+
+
+## Translations
+For new translations copy the file intl_template.h and rename it to intl_<2-letter-code>.h, where <2-letter-code> is the ISO-3166-2 2 letter country code. This file contains all strings used for output seen by normal users. Only debug output is (or better should be) English by default.  
+Please take look at the existing translations. This should show you how it works ;-)

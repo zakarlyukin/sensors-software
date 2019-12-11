@@ -1,3 +1,122 @@
+NRZ-2019-127
+online since 2019-12-02
+* same as NRZ-2019-126-B9
+
+NRZ-2019-126-B9
+* Update to Arduino Core 2.6.2 to fix WiFi stability issues
+
+NRZ-2019-126-B8
+* Updated translations
+* Collect error counters
+* Serbian localization added
+
+NRZ-2019-126-B7
+* Updated italian translations - thanks stewecar
+* Fix instabilities in SDS011 measurement decoding
+
+NRZ-2019-126-B6
+* Read SDS011 version once on startup
+* Discard power-on self-test dust sensor measurements
+* Do not store WiFi station credentials in SDK protected flash
+* Switch to ArduinoJson 6.13
+* show SDS011 manufacturing date in values HTML page
+* Update to Arduino Core 2.6.1, including many fixes for SSL, WiFi and SoftwareSerial
+* Update SHT3.x to 1.1.5
+
+NRZ-2019-126-B5
+* Rename Luftdaten.info to Sensors.Community everywhere
+* Report the submitted wifi signal quality level in the web UI
+* Keep WiFi information persistent over restarts
+* Perform WiFi Tx power calibration on boot
+
+NRZ-2019-126-B4
+* Try to configure system time from 3 different NTP sources
+* When system time is invalid, disable TLS verification
+* Use TLS for Feinstaub-App reporting
+
+NRZ-2019-126-B3
+* OTA updater validates loader checksums prior update
+* Maintain config setting backups and fall back if current version is corrupt
+* Code cleanups
+* Fix regression in Humidity Reading of BME280
+* Fix regression in logging to Feinstaub App
+
+NRZ-2019-126-B2
+* Switch to Arduino Core 2.5.2
+* Switch OTA updater to use TLS with server certificate verification
+* SSL server certificate verification for Madavi, Sensor Community and OpenSensemap
+* Update ESPSoftwareSerial to 5.0.4
+* Add support for Sensirion SHT3x Temperature/Humidity sensors
+* Code size optimisations
+* Fix pressure precision of BMP/BME280
+
+NRZ-2019-126-B1
+* next beta version
+
+NRZ-2019-125-B1
+* Revert unintentional default senseboxid change
+
+NRZ-2019-125
+online since 2019-10-31
+* same as NRZ-2019-124-B10
+  (+ renaming PM value names for SDS30)
+
+NRZ-2019-124-B10
+* Persist Wifi configuration in flash
+* Rewrite config using current format when version changes
+* Fix truncation of wifi password
+* prometheus endpoint: esp prefix was missing
+
+NRZ-2019-124-B9
+* Handle Si7021 for HTU21d replacement
+* Fix GPS regression
+
+NRZ-2019-124-B8
+* bug fixes
+* translation updates
+
+NRZ-2019-124-B7
+* Fix update checking interval
+
+NRZ-2019-124-B6
+* noise sensor added
+* Sensirion SPS30 added
+* option to flip OLED output
+* Fix crash on selecting available networks in AP mode
+* add options to disable display of wifi and device infos
+* Code size optimisations
+* Serve config pages incrementally to avoid running out of memory
+* Write more compliant config JSON
+* Advertise as http://airrohr-$espid.local/ in AP mode
+* BMP280/BME280 sensors are merged into one implementation
+* Switch OTA updater two a two-Stage implemenation allowing more than 512kb of sketch size
+* Fix memory corruption when using displays
+* Reduce memory consumption in data sending which allows keeping the HTTP server available
+
+NRZ-2019-124-B5
+* some comments removed
+* Var2Json casts optimized
+* new name "airRohr"
+* new logo (license CC0)
+
+NRZ-2019-124-B4
+* wrong variable use in PMSx003 function
+* showing text on wrong LCD display
+
+NRZ-2019-124-B4
+* SSL options for custom and influxdb added
+
+NRZ-2019-124-B3
+* merged changes for aircms support
+* some optimizations of html code
+* changes for support of ESP32 (not working completely until now)
+
+NRZ-2018-124-B2
+* redefine function overload
+
+NRZ-2018-124-B1
+* code cleanup
+
 NRZ-2018-123
 online since 2018-12-23
 * set CPUFreqency to 160MHz (for faster TLS handling)
@@ -193,7 +312,7 @@ NRZ-2018-104-B3
 
 NRZ-2018-104-B2
 * sending signal strength to InfluxDB
-* optimizations in reading PM sensors 
+* optimizations in reading PM sensors
 * disable sending data to OpenSenseMap with 'default' BoxID
 * disable sending data to InfluxDB at Luftdaten.info (only used internally)
 * character ' in text input fields (i.e. wifi SSID) should be displayed correctly
